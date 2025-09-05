@@ -20,22 +20,24 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
     border-radius: 12px;
     padding: 25px;
-    max-width: 600px;
     width: 100%;
+    max-width: 500px;
     box-shadow: 0 8px 30px rgba(2,6,23,0.6);
     border: 1px solid rgba(255,255,255,0.04);
+    box-sizing: border-box;
   }
   h1 {
-    margin: 0 0 20px;
+    margin-top: 0;
     font-size: 20px;
   }
   .row {
     display: flex;
     gap: 10px;
     margin-bottom: 12px;
+    flex-wrap: wrap;
   }
   .col {
-    flex: 1;
+    flex: 1 1 100%;
     display: flex;
     flex-direction: column;
   }
@@ -45,33 +47,38 @@
     opacity: 0.9;
   }
   input {
-    padding: 10px 12px;
+    padding: 12px;
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.06);
     background: rgba(255,255,255,0.02);
     color: #e6eef8;
     outline: none;
     font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
   }
   .buttons {
     display: flex;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
   }
   button {
-    padding: 10px 14px;
-    border-radius: 9px;
+    flex: 1 1 48%;
+    padding: 12px 0;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
     font-weight: 600;
+    font-size: 15px;
   }
   #generate { background: linear-gradient(90deg,#06b6d4,#3b82f6); color:white; }
   #copy { background: rgba(255,255,255,0.04); color:#cfe8ff; border:1px solid rgba(255,255,255,0.04); }
   textarea {
     width: 100%;
-    min-height: 70px;
+    min-height: 80px;
     margin-top: 12px;
-    padding: 10px 12px;
+    padding: 12px;
     border-radius: 8px;
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.04);
@@ -79,8 +86,14 @@
     resize: vertical;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
     font-size: 14px;
+    box-sizing: border-box;
   }
-  .hint { margin-top: 8px; font-size: 12px; color: #9fb5d7; opacity: 0.9; }
+  .hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #9fb5d7;
+    opacity: 0.9;
+  }
 </style>
 </head>
 <body>
@@ -104,7 +117,7 @@
     </div>
 
     <textarea id="output" readonly placeholder="O resultado gerado aparecerá aqui..."></textarea>
-    <div class="hint">Créditos: ServerSadzz/7gonzales</div>
+    <div class="hint">Créditos: ServerSadzz / gonzales7</div>
   </div>
 
 <script>
@@ -126,8 +139,7 @@ generateBtn.addEventListener('click', () => {
     copyBtn.disabled = true;
     return;
   }
-  const result = makeCombined(a, b);
-  output.value = result;
+  output.value = makeCombined(a, b);
   copyBtn.disabled = false;
 });
 
