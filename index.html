@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Mensagem</title>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f172a;
+    color: #e6eef8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  h1 {
+    margin: 0 0 20px;
+    font-size: 20px;
+  }
+  .row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+  input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    color: #e6eef8;
+    outline: none;
+    font-size: 14px;
+  }
+  .buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  button {
+    padding: 10px 14px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  #generate { background: linear-gradient(90deg,#06b6d4,#3b82f6); color:white; }
+  #copy { background: rgba(255,255,255,0.04); color:#cfe8ff; border:1px solid rgba(255,255,255,0.04); }
+  textarea {
+    width: 100%;
+    min-height: 70px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #e6eef8;
+    resize: vertical;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+    font-size: 14px;
+  }
+  .hint { margin-top: 8px; font-size: 12px; color: #9fb5d7; opacity: 0.9; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Gerador de Links Scam🥵</h1>
+
+    <div class="row">
+      <div class="col">
+        <label for="txt1">Link Scam</label>
+        <input id="txt1" type="text" placeholder="Coloque aqui um link de servidor de roblox privado">
+      </div>
+      <div class="col">
+        <label for="txt2">Link Fake</label>
+        <input id="txt2" type="text" placeholder="Coloque aqui um link de servidor de roblox privado">
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button id="generate">Gerar mensagem</button>
+      <button id="copy" disabled>Copiar resultado</button>
+    </div>
+
+    <textarea id="output" readonly placeholder="O resultado gerado aparecerá aqui..."></textarea>
+    <div class="hint">Preencha os campos e clique em "Gerar mensagem".</div>
+  </div>
+
+<script>
+const txt1 = document.getElementById('txt1');
+const txt2 = document.getElementById('txt2');
+const output = document.getElementById('output');
+const generateBtn = document.getElementById('generate');
+const copyBtn = document.getElementById('copy');
+
+function makeCombined(a, b) {
+  return `<${a}>[s](${b})`;
+}
+
+generateBtn.addEventListener('click', () => {
+  const a = txt1.value.trim();
+  const b = txt2.value.trim();
+  if (!a || !b) {
+    output.value = "Preencha os dois campos.";
+    copyBtn.disabled = true;
+    return;
+  }
+  const result = makeCombined(a, b);
+  output.value = result;
+  copyBtn.disabled = false;
+});
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(output.value);
+    copyBtn.textContent = "Copiado!";
+    setTimeout(() => copyBtn.textContent = "Copiar resultado", 1500);
+  } catch {
+    output.select();
+    document.execCommand("copy");
+  }
+});
+</script>
+</body>
+</html>
